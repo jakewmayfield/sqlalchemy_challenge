@@ -74,14 +74,14 @@ def tobs():
     query_result = session.query(*sel).filter(Measurement.date >= query_date).all()
     session.close()
 
-    tobsall = []
+    tobs_all = []
     for date, tobs in query_result:
         tobs_dict = {}
         tobs_dict["Date"] = date
         tobs_dict["Tobs"] = tobs
-        tobsall.append(tobs_dict)
+        tobs_all.append(tobs_dict)
 
-    return jsonify(tobsall)
+    return jsonify(tobs_all)
 
 @app.route('/api/v1.0/<start>')
 def get_start(start):
@@ -90,15 +90,15 @@ def get_start(start):
         filter(Measurement.date >= start).all()
     session.close()
 
-    tobsall = []
+    tobs_all = []
     for min,avg,max in query_result:
         tobs_dict = {}
         tobs_dict["Min"] = min
         tobs_dict["Average"] = avg
         tobs_dict["Max"] = max
-        tobsall.append(tobs_dict)
+        tobs_all.append(tobs_dict)
 
-    return jsonify(tobsall)
+    return jsonify(tobs_all)
 
 @app.route('/api/v1.0/<start>/<stop>')
 def get_start_stop(start,stop):
@@ -107,15 +107,15 @@ def get_start_stop(start,stop):
         filter(Measurement.date >= start).filter(Measurement.date <= stop).all()
     session.close()
 
-    tobsall = []
+    tobs_all = []
     for min,avg,max in query_result:
         tobs_dict = {}
         tobs_dict["Min"] = min
         tobs_dict["Average"] = avg
         tobs_dict["Max"] = max
-        tobsall.append(tobs_dict)
+        tobs_all.append(tobs_dict)
 
-    return jsonify(tobsall)
+    return jsonify(tobs_all)
 
 if __name__ == '__main__':
     app.run(debug=True)
